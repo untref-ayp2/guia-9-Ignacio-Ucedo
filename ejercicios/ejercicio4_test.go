@@ -16,9 +16,10 @@ func TestFarolas(t *testing.T) {
 		{37, 10, false},
 	}
 	x := []int{1, 21, 13, 4, 25, 16, 37, 45}
-	//Debe encender las farolas de las posiciones 3, 15 y 37
+	// x := []int{1, 4, 13, 16, 21, 25, 37, 45}
+	//Debe encender las farolas de las posiciones 7, 15, 26 y 37
 	salida, _ := EncenderFarolas(entrada, x)
-	if len(salida) != 3 {
+	if len(salida) != 4 {
 		t.Error("Error al encender farolas")
 	}
 	fmt.Println(salida)

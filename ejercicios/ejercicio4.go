@@ -18,6 +18,53 @@ type Farolas struct {
 // Pre condiciones:
 // El arreglo de farolas está ordenado por posicion de menor a mayor.
 // Paso greedy: Dado un punto x, encender la farola más a la derecha que pueda iluminarlo.
+
+func ordenarPuntos(x []int) []int {
+
+	for i := 0; i < len(x)-1; i++ {
+		if x[i] > x[i+1] {
+			mayor := x[i]
+			x[i] = x[i+1]
+			x[i+1] = mayor
+
+			if i > 0 {
+				i -= 2
+			}
+		}
+
+	}
+
+	return x
+}
+
 func EncenderFarolas(farolas []Farolas, x []int) ([]Farolas, error) {
-	panic("No implementado")
+	x = ordenarPuntos(x)
+
+	var resultado []Farolas
+	var luz int // hasta qué punto llega la luz, (inicialmente es 0)
+
+	for _, punto := range x {
+
+		if punto > luz {
+
+			for j := len(farolas) - 1; j >= 0; j-- {
+				farolaActual := &farolas[j]
+				inicio := farolaActual.Posicion - farolaActual.Radio
+				fin := farolaActual.Posicion + farolaActual.Radio
+
+				if inicio <= punto && punto <= fin {
+
+					farolaActual.Encendida = true
+					resultado = append(resultado, *farolaActual)
+					luz = fin
+
+					break
+				}
+
+			}
+		}
+
+	}
+
+	return resultado, nil
 }
